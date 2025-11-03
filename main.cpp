@@ -2,55 +2,38 @@
 // IDE used: Visual Studio Code (VS Code)
 #include <iostream>
 #include <map>
-#include <vector>
+#include <tuple>
 using namespace std;
 
 int main() {
-    // Milestone 1: Demo map with favorite colors
-    map<string, vector<string>> villagerColors;
+    // Milestone 2: Demo map with tuple values
+    map<string, tuple<int, string, string>> villagers;
 
-    // Insert elements
-    villagerColors["Audie"] = {"Orange", "Yellow", "Red"};
-    villagerColors["Raymond"] = {"Black", "Gray", "White"};
-    villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
+    // Insert elements: {friendship, species, catchphrase}
+    villagers["Drago"] = make_tuple(5, "Alligator", "Snap to It!");
+    villagers["Kyle"] = make_tuple(10, "Wolf", "Hubba hubba!");
+    villagers.insert({"Raymond", make_tuple(8, "Cat", "Nice fit")});
 
     // Display using range-based for loop
-    cout << "Villagers and their favorite colors (range-based):" << endl;
-    for (auto pair : villagerColors) {
-        cout << pair.first << ": ";
-        for (auto color : pair.second)
-            cout << color << " ";
-        cout << endl;
+    cout << "Villager details (range-based):" << endl;
+    for (auto& pair : villagers) {
+        cout << pair.first << " ["
+             << get<0>(pair.second) << ", "
+             << get<1>(pair.second) << ", "
+             << get<2>(pair.second) << "]" << endl;
     }
 
-    // Display using iterators
-    cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (auto it = villagerColors.begin(); it != villagerColors.end(); ++it) {
-        cout << it->first << ": ";
-        for (auto color : it->second)
-            cout << color << " ";
-        cout << endl;
-    }
-
-    // Delete an element
-    villagerColors.erase("Raymond");
-
-    // Search for an element
-    string searchKey = "Audie";
-    auto it = villagerColors.find(searchKey);
-    if (it != villagerColors.end()) {
-        cout << "\nFound " << searchKey << "'s favorite colors: ";
-        for (auto color : it->second)
-            cout << color << " ";
-        cout << endl;
+    // Search example
+    string searchKey = "Drago";
+    auto it = villagers.find(searchKey);
+    if (it != villagers.end()) {
+        cout << "\nFound " << searchKey << ": ["
+             << get<0>(it->second) << ", "
+             << get<1>(it->second) << ", "
+             << get<2>(it->second) << "]" << endl;
     } else {
         cout << searchKey << " not found." << endl;
     }
-
-    // Size and clear
-    cout << "\nSize before clear: " << villagerColors.size() << endl;
-    villagerColors.clear();
-    cout << "Size after clear: " << villagerColors.size() << endl;
 
     return 0;
 }
