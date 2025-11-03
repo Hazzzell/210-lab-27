@@ -17,6 +17,40 @@ void displayVillagers(const map<string, tuple<int, string, string>>& villagers) 
     }
 }
 
+// Add villager
+void addVillager(map<string, tuple<int, string, string>>& villagers) {
+    string name, species, catchphrase;
+    int friendship;
+
+    cout << "Villager name: ";
+    cin >> name;
+    cout << "Friendship level: ";
+    cin >> friendship;
+    cout << "Species: ";
+    cin >> species;
+    cin.ignore();
+    cout << "Catchphrase: ";
+    getline(cin, catchphrase);
+
+    villagers[name] = make_tuple(friendship, species, catchphrase);
+    cout << name << " added." << endl;
+}
+
+// Delete villager
+void deleteVillager(map<string, tuple<int, string, string>>& villagers) {
+    string name;
+    cout << "Enter villager name to delete: ";
+    cin >> name;
+
+    auto it = villagers.find(name);
+    if (it != villagers.end()) {
+        villagers.erase(it);
+        cout << name << " deleted." << endl;
+    } else {
+        cout << "Villager not found." << endl;
+    }
+}
+
 // Increase friendship
 void increaseFriendship(map<string, tuple<int, string, string>>& villagers) {
     string name;
@@ -73,26 +107,30 @@ int main() {
 
     int choice;
     do {
-        cout << "\n--- Villager Menu ---\n";
-        cout << "1. Increase Friendship\n";
-        cout << "2. Decrease Friendship\n";
-        cout << "3. Search for Villager\n";
-        cout << "4. Exit\n";
+        cout << "1. Add Villager\n";
+        cout << "2. Delete Villager\n";
+        cout << "3. Increase Friendship\n";
+        cout << "4. Decrease Friendship\n";
+        cout << "5. Search for Villager\n";
+        cout << "6. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
 
         switch (choice) {
-            case 1: increaseFriendship(villagers); break;
-            case 2: decreaseFriendship(villagers); break;
-            case 3: searchVillager(villagers); break;
-            case 4: cout << "Exiting program." << endl; break;
+            case 1: addVillager(villagers); break;
+            case 2: deleteVillager(villagers); break;
+            case 3: increaseFriendship(villagers); break;
+            case 4: decreaseFriendship(villagers); break;
+            case 5: searchVillager(villagers); break;
+            case 6: cout << "Exiting program." << endl; break;
             default: cout << "Invalid choice." << endl; break;
         }
 
-        if (choice != 4)
+        if (choice != 6)
             displayVillagers(villagers);
 
-    } while (choice != 4);
+    } while (choice != 6);
 
     return 0;
 }
+
