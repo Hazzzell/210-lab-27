@@ -1,3 +1,5 @@
+// COMSC-210 | Lab 27 | Keng C Chan
+// IDE used: Visual Studio Code (VS Code)
 #include <iostream>
 #include <map>
 #include <vector>
